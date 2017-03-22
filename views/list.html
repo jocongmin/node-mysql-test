@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>article</title>
+</head>
+<style type="text/css">
+	li{
+		display: inline-block;
+	}
+</style>
+<body>
+<% data.forEach(function(item){%>
+	<a href="article/<%=item.id%>"><li><%=item.title%></li></a><br>
+<%})%>
+
+</body>
+</html>
