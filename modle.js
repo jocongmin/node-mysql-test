@@ -58,7 +58,15 @@ gets.showArticleInfo = (req, res, next) => {
 gets.saveArticle = (req, res, next) => {
 	var formdata = req.body.formdata;
 	console.log(typeof(formdata.tit));
-	var qry = "insert into article (title,content) values ('" + formdata.tit + "', '" + formdata.con + "')";
+	var str = formdata.con;
+	str = str.replace(/\"/g, " ");
+	str = str.replace(/&#34;/g, "'");
+	str = str.replace(/&amp;/g, "");
+	str = str.replace(/lt;/g, "<");
+	str = str.replace(/gt;/g, ">");
+	str = str.replace(/\&/g, "");
+	str = str.replace(/\n/g, "<br>");
+	var qry = "insert into article (title,content) values ('" + formdata.tit + "', '" + str + "')";
 	console.log(qry)
 	db.query(qry, function(err, result) {
 		if (err) {

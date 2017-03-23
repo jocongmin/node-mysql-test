@@ -1,17 +1,32 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>article</title>
-</head>
-<body>
-<div class="tit">
-	<%=data[0].title %>
-</div>
-<div class="down" style="margin-top: 10px">
-content:
-</div>
-<div class="content" style="margin-top: 5px">
-	<%=data[0].content %>
-</div>
-</body>
+	<head>
+		<title>article</title>
+		<script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"></script>
+	</head>
+	<body>
+		<div class="tit">
+			<%=data[0].title %>
+		</div>
+		<div class="down" style="margin-top: 10px">
+			content:
+		</div>
+		<div class="content" style="margin-top: 5px">
+			
+		</div>
+	</body>
+	<script>
+		$(function(){
+			var str="<%=data[0].content %>";
+			str = str.replace(/\"/g," ");
+			str = str.replace(/&#34;/g,"'");
+			str = str.replace(/&amp;/g,"");
+			str = str.replace(/lt;/g,"<");
+			str = str.replace(/gt;/g,">");
+			str = str.replace(/\&/g,"");
+			str = str.replace(/\n/g,"<br>");
+			console.log(str)
+			$('.content').html(str);
+		})
+	</script>
 </html>
