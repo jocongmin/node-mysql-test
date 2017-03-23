@@ -1,5 +1,20 @@
 var db = require('./db.js');
 var gets = {};
+gets.loginif=(req,res,next)=>{
+	var userInfo=req.body.userinfo;
+	console.log(userInfo,'sdflksjfd')
+	var qry="select count(*) as num from admin where user='"+userInfo.user+"' and password='"+userInfo.psd+"'";
+	db.query(qry,function(err,result){
+		if(err){
+			console.log('err');
+			return;
+		}
+		if(result[0].num>=1){
+			req.session.sign = true;
+		}
+		res.send(result)
+	})
+}
 gets.findAll = (req, res, next) => {
 	var qry = "select * from user";
 	var qry2 = "select * from user_next";

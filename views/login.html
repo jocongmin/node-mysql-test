@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>login</title>
+</head>
+<body>
+<div class="user">
+	<input class="users" type="text" name="user">
+</div>
+<div class="password">
+	<input class="psd" type="password" name="password">
+</div>
+<div class="login">
+	<button class="login">login</button>
+</div>
+</body>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$('.login').one('click',function(){
+			var user=$('.users').val();
+			var psd=$('.psd').val();
+			var userInfo={
+				user:user,
+				psd:psd
+			}
+			console.log(userInfo)
+			$.ajax({
+					url:'/loginif',
+					dataType:'json',
+					data:{
+						userinfo:userInfo
+					},
+					type:'post',
+					success:function(msg){
+						var state=msg[0].num;
+						if(state==1){
+							window.location.href='/list'
+						}else{
+							alert('username or password wrong')
+						}
+					},
+					error:function(err){
+						console.log(err)
+					}
+				})
+		})
+	})
+</script>
+</html>
