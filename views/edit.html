@@ -57,7 +57,7 @@ $(function(){
 				success:function(msg){
 					console.log(msg.state)
 					if(msg.state){
-						window.location.href="/list";
+						window.location.href="/article/<%=data[0].id%>";
 					}
 				},
 				error:function(err){
