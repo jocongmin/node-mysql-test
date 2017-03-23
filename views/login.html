@@ -13,11 +13,13 @@
 <div class="login">
 	<button class="login">login</button>
 </div>
+<div class="tip"></div>
+
 </body>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
 	$(function(){
-		$('.login').one('click',function(){
+		$('.login').on('click',function(){
 			var user=$('.users').val();
 			var psd=$('.psd').val();
 			var userInfo={
@@ -34,10 +36,11 @@
 					type:'post',
 					success:function(msg){
 						var state=msg[0].num;
-						if(state==1){
+						console.log(state)
+						if(state>=1){
 							window.location.href='/list'
 						}else{
-							alert('username or password wrong')
+							$('.tip').html('name or password wrong')
 						}
 					},
 					error:function(err){
