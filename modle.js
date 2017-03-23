@@ -79,7 +79,6 @@ gets.saveArticle = (req, res, next) => {
 }
 gets.updateArticle = (req, res, next) => {
 	var formdata = req.body.formdata;
-	console.log(typeof(formdata.tit));
 	var str = formdata.con;
 	str = str.replace(/\"/g, " ");
 	str = str.replace(/&#34;/g, "'");
@@ -89,7 +88,6 @@ gets.updateArticle = (req, res, next) => {
 	str = str.replace(/\&/g, "");
 	str = str.replace(/\n/g, "<br>");
 	var qry = "update article set title='"+formdata.tit+"',content='"+str+"' where id='"+req.body.id+"'";
-	console.log(qry,'sdflksjf')
 	db.query(qry, function(err, result) {
 		if (err) {
 			console.log('err')

@@ -22,5 +22,8 @@
 		<% data.forEach(function(item){%>
 		<a href="article/<%=item.id%>"><li><%=item.title%></li></a> <a class="edit" href="edit/<%=item.id%>">edit this page</a><a class="del" href="delete/<%=item.id%>">del this page</a><br>
 		<%})%>
+		<br>
+		<br>
+		<a href="/write" style="display:block;margin-top: 30px;"><button>to write one article</button></a>
 	</body>
 </html>
