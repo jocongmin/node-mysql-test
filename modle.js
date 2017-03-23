@@ -67,7 +67,6 @@ gets.saveArticle = (req, res, next) => {
 	str = str.replace(/\&/g, "");
 	str = str.replace(/\n/g, "<br>");
 	var qry = "insert into article (title,content) values ('" + formdata.tit + "', '" + str + "')";
-	console.log(qry)
 	db.query(qry, function(err, result) {
 		if (err) {
 			console.log('err')
@@ -78,4 +77,53 @@ gets.saveArticle = (req, res, next) => {
 		})
 	})
 }
+gets.updateArticle = (req, res, next) => {
+	var formdata = req.body.formdata;
+	console.log(typeof(formdata.tit));
+	var str = formdata.con;
+	str = str.replace(/\"/g, " ");
+	str = str.replace(/&#34;/g, "'");
+	str = str.replace(/&amp;/g, "");
+	str = str.replace(/lt;/g, "<");
+	str = str.replace(/gt;/g, ">");
+	str = str.replace(/\&/g, "");
+	str = str.replace(/\n/g, "<br>");
+	var qry = "update article set title='"+formdata.tit+"',content='"+str+"' where id='"+req.body.id+"'";
+	console.log(qry,'sdflksjf')
+	db.query(qry, function(err, result) {
+		if (err) {
+			console.log('err')
+			return;
+		}
+		res.send({
+			state: true
+		})
+	})
+}
+gets.deleteArticle = (req, res, next) => {
+	var delId=req.params.id;
+	var qry="delete from article where id="+delId+"";
+	db.query(qry, function(err, result) {
+		if (err) {
+			console.log('err')
+			return;
+		}
+		res.redirect('/list')
+	})
+}
+gets.editArticle = (req, res, next) => {
+	var editId=req.params.id;
+	console.log(editId,'dksfdksfj')
+	var qry="select * from article where id="+editId+"";
+	db.query(qry, function(err, result) {
+		if (err) {
+			console.log('err')
+			return;
+		}
+		res.render('edit',{
+			data:result
+		})
+	})
+}
+
 module.exports = gets;

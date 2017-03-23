@@ -3,15 +3,20 @@
 <head>
 	<title>article</title>
 </head>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"></script>
 <style type="text/css">
 	li{
 		display: inline-block;
 	}
+	.del,.edit{
+		margin-left: 20px;
+	}
 </style>
 <body>
 <% data.forEach(function(item){%>
-	<a href="article/<%=item.id%>"><li><%=item.title%></li></a><br>
+	<a href="article/<%=item.id%>"><li><%=item.title%></li></a> <a class="edit" href="edit/<%=item.id%>">edit this page</a><a class="del" href="delete/<%=item.id%>">del this page</a><br>
 <%})%>
 
 </body>
+
 </html>

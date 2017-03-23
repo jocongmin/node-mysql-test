@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>form</title>
+		
+	</head>
+	<style>
+		.content{
+			min-height: 300px;
+			border: 1px solid #ddd;
+		}
+	</style>
+	<body>
+		<form class="form">
+			<div class="tit-box">
+				<label>title:</label><input type="text" class="title" value="<%=data[0].title%>" name="title">
+			</div>
+			<div class="content-box" style="margin-top: 10px">
+				<label>content:</label><div contenteditable='true' class="content">
+				
+			</div>
+		</div>
+		<div class="sub">
+			<input type="button" value="sub" name="submit" id='submit'>
+		</div>
+	</form>
+</body>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	var str="<%=data[0].content%>";
+	str = str.replace(/\"/g," ");
+	str = str.replace(/&#34;/g,"'");
+	str = str.replace(/&amp;/g,"");
+	str = str.replace(/lt;/g,"<");
+	str = str.replace(/gt;/g,">");
+	str = str.replace(/\&/g,"");
+	str = str.replace(/\n/g,"<br>");
+	$('.content').html(str);
+})
+	$(function(){
+		$('#submit').click(function(e){
+			var tit=$(".title").val();
+			var con=$(".content").html();
+			var formData={
+				tit:tit,
+				con:con
+			}
+			$.ajax({
+				url:'/update',
+				dataType:'json',
+				data:{
+					formdata:formData,
+					id:<%=data[0].id%>
+				},
+				type:'post',
+				success:function(msg){
+					console.log(msg.state)
+					if(msg.state){
+						window.location.href="/list";
+					}
+				},
+				error:function(err){
+					console.log(err)
+				}
+			})
+		})
+	})
+</script>
+</html>
